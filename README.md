@@ -13,6 +13,7 @@ Versions
 IK version | OpenSearch version
 -----------|-----------
 main | 1.x -> main
+2.4.0 | 2.* -> for-jdk11
 
 Install
 -------
@@ -214,11 +215,23 @@ mvn clean
 mvn compile
 mvn package
 ```
-
 拷贝和解压release下的文件: #{project_path}/opensearch-analysis-ik/target/releases/opensearch-analysis-ik-*.zip 到你的 opensearch 插件目录, 如: plugins/ik
 重启opensearch
 
-3.分词测试失败
+
+3. 如何根据自身OpenSearch版本编译出可用的IK分词器并安装
+    - 修改实际使用的opensearch版本和opensearch适配的JDK版本
+      <opensearch.version>2.4.0</opensearch.version>
+      <maven.compiler.target>11</maven.compiler.target>
+    - 修改opensearch依赖(以opensearch 2.4.0为例)
+    - mvn assembly:assembly
+    - target/releases
+    - mkdir {opensearch-path}/plugins/ik
+    - cp opensearch-analysis-ik-2.4.0.zip {opensearch-path}/plugins/ik
+    - unzip opensearch-analysis-ik-2.4.0.zip
+    - restart opensearch
+
+4.分词测试失败
 请在某个索引下调用analyze接口测试,而不是直接调用analyze接口
 如:
 ```bash
@@ -228,8 +241,7 @@ curl -XGET "http://localhost:9200/your_index/_analyze" -H 'Content-Type: applica
 }'
 ```
 
-
-4. ik_max_word 和 ik_smart 什么区别?
+5.ik_max_word 和 ik_smart 什么区别?
 
 
 ik_max_word: 会将文本做最细粒度的拆分，比如会将“中华人民共和国国歌”拆分为“中华人民共和国,中华人民,中华,华人,人民共和国,人民,人,民,共和国,共和,和,国国,国歌”，会穷尽各种可能的组合，适合 Term Query；
