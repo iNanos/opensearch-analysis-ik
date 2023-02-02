@@ -219,17 +219,17 @@ mvn package
 重启opensearch
 
 
-3. 如何根据自身OpenSearch版本编译出可用的IK分词器并安装
-    - 修改实际使用的opensearch版本和opensearch适配的JDK版本
-      <opensearch.version>2.4.0</opensearch.version>
-      <maven.compiler.target>11</maven.compiler.target>
-    - 修改opensearch依赖(以opensearch 2.4.0为例)
-    - mvn assembly:assembly
-    - target/releases
-    - mkdir {opensearch-path}/plugins/ik
-    - cp opensearch-analysis-ik-2.4.0.zip {opensearch-path}/plugins/ik
-    - unzip opensearch-analysis-ik-2.4.0.zip
-    - restart opensearch
+3.如何根据自身OpenSearch版本编译出可用的IK分词器并安装
+- 修改实际使用的opensearch版本和opensearch适配的JDK版本
+  <opensearch.version>2.4.0</opensearch.version>
+  <maven.compiler.target>11</maven.compiler.target>
+- 修改opensearch依赖(以opensearch 2.4.0为例)
+- mvn assembly:assembly
+- target/releases
+- mkdir {opensearch-path}/plugins/ik
+- cp opensearch-analysis-ik-2.4.0.zip {opensearch-path}/plugins/ik
+- unzip opensearch-analysis-ik-2.4.0.zip
+- restart opensearch
 
 4.分词测试失败
 请在某个索引下调用analyze接口测试,而不是直接调用analyze接口
